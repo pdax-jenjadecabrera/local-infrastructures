@@ -1,0 +1,24 @@
+services:
+  local_infrastructure_nginx:
+    build: ./nginx
+    container_name: local_infrastructure_nginx
+    restart: unless-stopped
+    volumes:
+      - ./nginx/conf/default.conf:/etc/nginx/conf.d/default.conf
+    networks:
+      - network
+    ports:
+      - "80:80"
+
+  local_infrastructure_excalidraw:
+    image: excalidraw/excalidraw
+    container_name: local_infrastructure_excalidraw
+    platform: linux/amd64
+    networks:
+      - network
+    expose:
+      - "80"
+
+networks:
+  network:
+    driver: bridge
